@@ -1,0 +1,36 @@
+*** Settings ***
+Documentation     Resource File
+Library           SeleniumLibrary
+Library           ExcelLibrary.py
+Library           Collections
+
+*** Keywords ***
+Login To fligh Application
+    [Arguments]    ${username}    ${password}
+    [Documentation]    user keyword in resource file
+    Click Element    css:#gc-custom-header-nav-bar-acct-menu
+    Sleep    2
+    Click Link    xpath://*[@id="gc-custom-header-nav-bar-acct-menu"]/div/div/div/div/div[1]/div/div/a[1]
+    Sleep    2
+    Input Text    css:#signin-loginid    ${username}
+    Sleep    2
+    Input Password    css:#signin-password    ${password}
+    Sleep    2
+    Click Button    css:#submitButton
+    Sleep    2
+
+LginToFlightApplicationUsingExcel
+    Click Element    css:#gc-custom-header-nav-bar-acct-menu
+    Sleep    2
+    Click Link    xpath://*[@id="gc-custom-header-nav-bar-acct-menu"]/div/div/div/div/div[1]/div/div/a[1]
+    Sleep    2
+    Open Excel Document    LoginData.xlsx    doc_id=docid
+    ${username}    Read Excel Cell    2    2
+    ${password}    Read Excel Cell    2    3
+    Sleep    2
+    Input Text    css:#signin-loginid    ${username}
+    Sleep    2
+    Input Password    css:#signin-password    ${password}
+    Sleep    2
+    Click Button    css:#submitButton
+    Sleep    2
